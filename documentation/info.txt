@@ -1,0 +1,4 @@
+This file contains documentations and coverage_html_report.
+The coverage_html_report directory will automatically get created when you execute following cmd
+
+$ eval_code_coverage.sh

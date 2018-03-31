@@ -1,0 +1,14 @@
+# .coveragerc to control coverage.py
+[run]
+branch = True
+concurrency = thread
+
+source =
+    webcrawler
+
+[report]
+ignore_errors = True
+
+[html]
+directory = ./documentation/coverage_html_report
+title = Code Coverage Report of Web Site Map
