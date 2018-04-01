@@ -45,7 +45,7 @@ class UserConfig:
 
         parser.add_argument ( '-f', '--file', dest='op_f_name', required=False, metavar="File_Name",
                               default="output.txt", type=str, help='name of the output file (default=output.txt): ' +
-                                                                   'stored in output directory' )
+                                                                   'stored in the output directory' )
 
         required = parser.add_argument_group ( 'required arguments' )
 

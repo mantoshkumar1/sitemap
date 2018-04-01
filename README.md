@@ -45,19 +45,19 @@ optional arguments (For an invalid arg value, default value will be picked up):
   -l L, --log L         log level (0<=L<=5: default=2)
   -t T, --timeout T     timeout in seconds (T>=0: default=10)
   -f File_Name, --file File_Name
-                        name of the output file (default=output.txt): stored in output directory
+                        name of the output file (default=output.txt): stored in the output directory
                         
 required arguments:
   -d Domain, --domain Domain
                         name of the domain
 ```
 
-**Note 1**: The sitemap result and logs get stored in **_./output_** and **_./logs_** directory respectively. The log files contains
+**Note 1**: The sitemap result and logs get stored in **_./output_** and **_./logs_** directory respectively. The log files contain
 broken or dead links within the domain along with application logs.<br>
 
-**Note 2**:  Ideally the user should provide absolute web address for a _Domain_. In case the provided value is different than absolute
-domain address, then application calculates the absolute domain address on its own using provided values.<br>
-Example: If user provides _Domain_ = 'https://monzo.com/about/', then the application will still build sitemap for 'https://monzo.com/' only.
+**Note 2**:  Ideally the user should provide an absolute web address for a _Domain_. In case the provided value is different than absolute
+domain address, the application calculates the absolute domain address on its own using provided values.<br>
+Example: If a user provides _Domain_ = 'https://monzo.com/about/', then the application will still build the sitemap for 'https://monzo.com/' only.
 
 **Note 3**: By default, the application enforces default values for optional arguments. However, the application supports flexibility
 to change default values as per user's requisites. Please visit [Custom Default Configuration Settings](#custom-default-configuration-settings-for-advanced-users) 
@@ -81,35 +81,31 @@ above executed shell script automatically opens the home HTML page (**_./documen
 of application code coverage report.
 
 ## Custom Default Configuration Settings (For Advanced Users)
-User can adjust the default configuration of this tool by modifying **dflt_cfg.py**. By default, each field is assigned a value.
+A user can adjust the default configuration of this tool by modifying **dflt_cfg.py**. By default, each field is assigned a value.
 For any invalid/absent optional command line argument values, default values stored in _dflt_cfg.py_ will automatically
 get enforced for the application. This section details the explanation of each such field. <br>
 
-* **NUM_THREADS**: Specifies number of threads that crawls the domain concurrently.    
+* **NUM_THREADS**: Specifies the number of threads that crawls the domain concurrently.    
     * Expected value: Non-negative integer
     * Default value: _4_
     
 * **OUTPUT_PATH**: Specifies the file location where generated sitemap for a domain will get written.    
-    * Expected value: A valid absolute/relative system path to a file in a string format. In case of relative path, it should 
-    be relative to application home directory (./sitemap) only.
+    * Expected value: A valid absolute/relative system path to a file in a string format. In case of the relative path, it should be relative to application home directory (./sitemap) only.
     * Default value: _"./output/output.txt"_
     
-* **TIMEOUT**: Specifies the waiting time (seconds) before application terminates in case of an unresponsive domain.    
+* **TIMEOUT**: Specifies the waiting time (seconds) before the application terminates in case of an unresponsive domain.    
     * Expected value: Non-negative integer
     * Default value: _10_     
  
-* **SYSTEM_PROXY**: Using a dictionary (e.g; proxies below), it specifies mapping protocol or protocol and host to the URL of 
-the proxy to be used on each urlopen request. 
+* **SYSTEM_PROXY**: Using a dictionary (e.g; proxies below), it specifies mapping protocol or protocol and host to the URL of the proxy to be used on each *urlopen* request. 
 
     If the user system is behind a proxy, assign a dictionary (e.g; using proxies argument) mapping protocol 
     or protocol and host to the URL of the proxy to be used on each urlopen request using SYSTEM_PROXY configuration.
 
-    If the user system is not behind a proxy or user prefers urllib to auto-detect the proxies from the environment 
-    variables, then please set it to None. Normally that’s a good thing, but there are occasions 
-    when it may not be helpful (Reference: [Footnote 5](https://docs.python.org/3.5/howto/urllib2.html#id12)). 
+    If the user system is not behind a proxy or user prefers urllib to auto-detect the proxies from the environment variables, then please set it to None. Normally that’s a good thing, but there are occasions when it may not be helpful (Reference: [Footnote 5](https://docs.python.org/3.5/howto/urllib2.html#id12)). 
 
-    To disable auto detected proxy, please pass an empty dictionary. For example, in order to test scripts with a localhost server, 
-    user might need to prevent urllib from using the proxy and thus requires {}.
+    To disable autodetected proxy, please pass an empty dictionary. For example, in order to test scripts with a localhost server, 
+    a user might need to prevent urllib from using the proxy and thus requires {}.
     
     * Expected value: dictionary / None
     * Default value: _None_
@@ -126,4 +122,27 @@ the proxy to be used on each urlopen request.
     * Expected value: 0 <= LOG_LEVEL <= 5 (0 is the lowest level log severity and 5 is the highest level log severity)
     * Default value: _2_
     
-## Architecture for Domain Crawler - Domain Mapping
+## Algorithm of Domain Crawler - Domain Mapping
+<p align="center">
+  <img src="documentation/activity_diagrams/app_initiation.jpg">
+  <br>Activity Diagram for Application Initialization<br>
+</p>
+
+<p align="center">
+  <img src="documentation/activity_diagrams/domain_crawling_mapping.jpg">
+  <br>Activity Diagram for Domain Crawling and Mapping<br>
+</p>
+
+## Future Possible Extension
+Since this application parses all the active URLs in a domain in a hierarchy of interconnecting URL-nodes,
+it is possible to extend this application to introduce an enhancement that would produce the graphical representation of domain URL inter-connectivities. This application has already addressed the issue of loops between URLs. All the end URL nodes of the inbuilt hierarchy of  interconnecting URL-nodes are either
+dead-end URLs (which do not direct to any other UR) or an URL node which direct to first already visited 
+URL node, thus resolving the issue of loops between URLs.
+
+## References:
+* 1\. https://pymotw.com/3/urllib.parse/#parsing 
+* 2\. Uniform Resource Identifiers (URI): Generic Syntax: https://tools.ietf.org/html/rfc2396.html 
+* 3\. pysitemap 0.5: https://pypi.python.org/pypi/pysitemap/0.5 
+ (We have implemented am entirely different approach than this, as we have built a hierarchy of
+ interconnecting nodes which is capable to support a wide range of future requirements (Please see the
+ [Future Possible Extension](#future-possible-extension))section. We also list dead or broken URL links within a domain.)  
