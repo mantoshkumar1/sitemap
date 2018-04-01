@@ -1,9 +1,16 @@
 from webcrawler.app_constant import *
 
 DFLT_CFG = {
-    OUTPUT_DIR: "./outputs",
+    # Domain for which sitemap will be generated
+    DOMAIN: None,
 
-    # If domain is not known to be slow responsive, increase this value
+    # Number of concurrent threads performing domain crawling.
+    NUM_THREADS : 4,
+
+    # Location where sitemap will be stored
+    OUTPUT_PATH: "./output/output.txt",
+
+    # Application timeout in seconds
     TIMEOUT: 10,
 
     # If you need to use a proxy, assign a dictionary (e.g; using proxies argument) mapping protocol \
@@ -19,4 +26,7 @@ DFLT_CFG = {
     #     'https': 'http://10.10.1.10:1080',
     # }
     SYSTEM_PROXY: None,
+
+    # Set the level of logs which will be collected by this application.
+    LOG_LEVEL : 2
 }
