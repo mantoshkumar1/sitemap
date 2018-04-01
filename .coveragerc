@@ -11,4 +11,4 @@ ignore_errors = True
 
 [html]
 directory = ./documentation/coverage_html_report
-title = Code Coverage Report of Web Site Map
+title = Code Coverage Report of Domain Crawler - Domain Mapping

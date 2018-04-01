@@ -1,7 +1,7 @@
 import logging
 
 import dflt_cfg
-from webcrawler.app_constant import OUTPUT_PATH
+from webcrawler.app_constant import OUTPUT_PATH, DOMAIN
 
 
 class UrlNode:
@@ -54,7 +54,8 @@ class UrlTree:
                                                                                                         dflt_cfg.DFLT_CFG[ OUTPUT_PATH ] ) )
             self.output_fd.close ( )
         else:
-            print("Sitemap is written in {}".format(dflt_cfg.DFLT_CFG[ OUTPUT_PATH ]))
+            print("Sitemap for {} is written in {}.".format(dflt_cfg.DFLT_CFG[DOMAIN], dflt_cfg.DFLT_CFG[ OUTPUT_PATH ]))
+            print( "Logs (Broken or dead URLs along with application logs) for domain {0} are available in {1} directory.".format ( dflt_cfg.DFLT_CFG[DOMAIN], "./logs" ) )
             self.output_fd.close ( )
 
     def print_url_links ( self, url_node, level=0 ):

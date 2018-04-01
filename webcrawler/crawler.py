@@ -1,5 +1,6 @@
-# https://pymotw.com/3/urllib.parse/#parsing
-# Uniform Resource Identifiers (URI): Generic Syntax: https://tools.ietf.org/html/rfc2396.html
+# References:
+# 1. https://pymotw.com/3/urllib.parse/#parsing
+# 2. Uniform Resource Identifiers (URI): Generic Syntax: https://tools.ietf.org/html/rfc2396.html
 
 import logging
 import queue
